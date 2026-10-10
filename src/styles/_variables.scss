@@ -1,0 +1,22 @@
+// Colours sampled from the Figma design
+$accent: #ec7160;
+$accent-dark: #e2604d;
+$text: #303030;
+$muted: #898989;
+$surface: #f6f6f6;
+$field: #f5f5f5;
+$danger: #d82700;
+$border: #e4e4e4;
+$white: #ffffff;
+
+// Typography
+$font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+$font-logo: 'Federo', 'Inter', system-ui, sans-serif;
+
+// Layout
+$sidebar-w: 260px;
+$list-w: 320px;
+$drawer-w: 210px;
+$bp-desktop: 900px;
+$bp-mobile: 899px;
+$bp-laptop: 1180px;

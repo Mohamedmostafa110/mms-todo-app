@@ -1,0 +1,221 @@
+@use 'variables' as *;
+
+/* ---------- Mobile first ---------- */
+
+.app {
+  position: relative;
+  min-height: 100vh;
+  overflow-x: clip;
+}
+
+// Slide-in menu that sits behind the page on phones
+.drawer {
+  position: fixed;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 0;
+  display: flex;
+  flex-direction: column;
+  width: $drawer-w;
+  background: $surface;
+  visibility: hidden;
+  transition: visibility 0s linear 0.28s;
+}
+
+.drawer .logo,
+.drawer .search--sidebar {
+  display: none;
+}
+
+.drawer__close {
+  align-self: flex-start;
+  margin: 16px 0 0 8px;
+}
+
+.page {
+  position: relative;
+  z-index: 1;
+  min-height: 100vh;
+  background: $white;
+  transition: transform 0.28s ease;
+}
+
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 5;
+  display: grid;
+  grid-template-columns: 40px 1fr 40px;
+  align-items: center;
+  height: 56px;
+  padding: 0 8px;
+  background: $white;
+}
+
+.mobile-search {
+  display: none;
+  padding: 0 15px 10px;
+  background: $white;
+}
+
+.list-panel {
+  position: relative;
+}
+
+.list-scroll {
+  padding-bottom: 40px;
+}
+
+.content {
+  padding: 28px 18px 56px;
+}
+
+.fab {
+  display: none;
+}
+
+[data-view='add'] .list-panel,
+[data-view='add'] .fab,
+[data-view='home'] .fab {
+  display: none;
+}
+
+@media (max-width: $bp-mobile) {
+  .menu-open .drawer {
+    visibility: visible;
+    transition-delay: 0s;
+  }
+
+  .menu-open .page {
+    transform: translateX($drawer-w);
+  }
+
+  .menu-open .page > * {
+    pointer-events: none;
+  }
+
+  .search-open .mobile-search {
+    display: block;
+  }
+
+  // Home on phones: the add form first, then the notes below it
+  .workspace {
+    display: flex;
+    flex-direction: column;
+  }
+
+  [data-view='home'] .content {
+    order: -1;
+    padding-bottom: 0;
+  }
+
+  [data-view='note'] .list-panel {
+    display: none;
+  }
+}
+
+/* ---------- Desktop ---------- */
+
+@media (min-width: $bp-desktop) {
+  .app {
+    display: grid;
+    grid-template-columns: $sidebar-w minmax(0, 1fr);
+    height: 100vh;
+    height: 100dvh;
+    overflow: hidden;
+  }
+
+  .drawer {
+    position: static;
+    width: auto;
+    padding: 40px 0 24px;
+    overflow-y: auto;
+    border-right: 1px solid $border;
+    visibility: visible;
+  }
+
+  .drawer .logo {
+    display: block;
+    margin: 0 24px;
+  }
+
+  .drawer .search--sidebar {
+    display: flex;
+  }
+
+  .drawer .drawer__close,
+  .topbar {
+    display: none;
+  }
+
+  .page {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    min-height: 0;
+    height: 100%;
+  }
+
+  .workspace {
+    display: flex;
+    flex: 1;
+    min-height: 0;
+  }
+
+  .list-panel {
+    flex: 0 0 $list-w;
+    width: $list-w;
+    border-right: 1px solid $border;
+    transition: flex-basis 0.25s ease, width 0.25s ease;
+  }
+
+  .list-scroll {
+    height: 100%;
+    overflow-y: auto;
+  }
+
+  .content {
+    flex: 1;
+    min-width: 0;
+    overflow-y: auto;
+    padding: 96px 56px 120px 108px;
+  }
+
+  [data-view='add'] .content {
+    padding-left: 200px;
+  }
+
+  [data-view='home'] .content {
+    padding-left: 96px;
+  }
+
+  .fab {
+    display: flex;
+  }
+
+  [data-view='add'] .fab,
+  [data-view='home'] .fab {
+    display: none;
+  }
+
+  .list-collapsed .list-panel {
+    flex-basis: 0;
+    width: 0;
+  }
+
+  .list-collapsed .list-scroll {
+    visibility: hidden;
+  }
+}
+
+@media (min-width: $bp-desktop) and (max-width: $bp-laptop) {
+  .content {
+    padding-left: 56px;
+    padding-right: 40px;
+  }
+
+  [data-view='add'] .content {
+    padding-left: 100px;
+  }
+}
